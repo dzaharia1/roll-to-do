@@ -1,0 +1,26 @@
+{
+  "name": "WhatToDo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js & gulp"
+  },
+  "author": "Dan Zaharia",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.13",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sass": "^4.1.0",
+    "gulp-scss-lint": "^1.0.0"
+  },
+  "dependencies": {
+    "consolidate": "^0.16.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
+  }
+}
