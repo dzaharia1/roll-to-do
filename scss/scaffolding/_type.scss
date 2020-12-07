@@ -1,19 +1,27 @@
-%helvetica {
-  font-family: HelveticaNeue, Helvetica Neue, Helvetica, sans-serif;
-}
-%helvetica-light {
-  @extend %helvetica;
-  font-weight: 200;
-}
-%helvetica-normal {
-  @extend %helvetica;
-  font-weight: 400;
-}
-%helvetica-medium {
-  @extend %helvetica;
-  font-weight: 500;
-}
-%helvetica-bold {
-  @extend %helvetica;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+$lato: lato, helvetica, arial, sans-serif;
+
+%lato {
+  font-family: $lato;
   font-weight: 700;
 }
+
+// %helvetica {
+//   font-family: HelveticaNeue, Helvetica Neue, Helvetica, sans-serif;
+// }
+// %helvetica-light {
+//   @extend %helvetica;
+//   font-weight: 200;
+// }
+// %helvetica-normal {
+//   @extend %helvetica;
+//   font-weight: 400;
+// }
+// %helvetica-medium {
+//   @extend %helvetica;
+//   font-weight: 500;
+// }
+// %helvetica-bold {
+//   @extend %helvetica;
+//   font-weight: 700;
+// }

@@ -1,0 +1,41 @@
+.item-list {
+    width: 100%;
+    list-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    overflow-x: visible;
+
+    li {
+        @extend %horizontal-center;
+        justify-content: space-between;
+        padding: 24px 0;
+        border-bottom: 1px $accent-gray solid;
+        overflow-x: visible;
+    }
+
+    &__check {
+        appearance: none;
+        border-radius: 6px;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.07),
+            0px 3px 15px rgba(0, 0, 0, 0.1);
+        background: $white;
+        width: 28px;
+        height: 28px;
+
+        &:hover,
+        &:focus {
+            outline: none;
+            box-shadow: 0px 1px 2px rgba($base-maroon, 0.45),
+                0px 3px 7px rgba($base-maroon, 0.45);
+        }
+
+        &:checked {
+            appearance: none;
+            background-color: $accent-maroon;
+            background-image: url('../img/checkbox-check.svg');
+            background-size: 65% 65%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+}
