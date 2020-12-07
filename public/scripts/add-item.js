@@ -31,10 +31,12 @@ readyFunctions.push(() => {
 
 function submitItem () {
 	const addItemInput = document.querySelector('.add-item__input');
+	const itemList = document.querySelector('.item-list');
 
 	addItem('movies', addItemInput.value);
 	addItemInput.value = '';
 	addItemInput.focus();
+	itemList.scrollTop = 0;
 }
 
 function addItem (list, itemText) {
