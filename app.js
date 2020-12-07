@@ -1,14 +1,10 @@
-var express = require('express');
-var path = require('path');
-
-var cons = require('consolidate');
-
-var ejs = require('ejs');
-
-var app = express();
-
-var localport = '3333';
-var localhost = 'http://localhost';
+const express = require('express'),
+path = require('path'),
+cons = require('consolidate'),
+ejs = require('ejs'),
+app = express();
+const localport = '3333';
+const localhost = 'http://localhost';
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
