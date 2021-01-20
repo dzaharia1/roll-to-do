@@ -4,9 +4,9 @@
 <nav class="menu">
     <div class="menu__icon"></div>
     <ul class="menu__category-menu">
-        <% for (let i = 0; i < data.length; i ++) { %>
+        <% for (let i = 0; i < categories.length; i ++) { %>
         <li>
-            <a href="" data-target="<%- data[i].categorySlug %>"><%- data[i].category %></a>
+            <a href="" data-target="<%- categories[i].categorySlug %>"><%- categories[i].category %></a>
         </li>
         <%}%>
         <li>

@@ -1,6 +1,6 @@
-<% for (let i = 0; i < data.length; i ++) { %>
-<ul class="item-list <%if (i === 0) {%>item-list--visible<%}%>" id="<%- data[i].categorySlug %>">
-    <% for (item of (data[i].items)) { %>
+<% for (let i = 0; i < categories.length; i ++) { %>
+<ul class="item-list <%if (i === 0) {%>item-list--visible<%}%>" id="<%- categories[i].categorySlug %>">
+    <% for (item of (categories[i].items)) { %>
     <li>
         <label for="" class="item-list__label"><%- item.name %></label>
         <input class="item-list__check" type="checkbox" name="" id="" <% if (item.seen) { %>checked<% } %>>
