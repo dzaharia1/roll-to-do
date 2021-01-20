@@ -4,15 +4,23 @@
 
 @import 'partials/item-list';
 @import 'partials/add-item';
+@import 'partials/menu';
 
 * {
+	@extend %lato;
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+	color: $black;
 }
 
 a {
 	text-decoration: none;
+}
+
+ul,
+li {
+	list-style: none;
 }
 
 .hidden {
@@ -23,7 +31,7 @@ body {
 	@extend %lato;
 	width: 100%;
 	height: 100vh;
-	padding: 16px 16px 0 16px;
+	padding: 0 24px 0 24px;
 	display: grid;
 	scrollbar-width: none;
 	font-size: 16px;

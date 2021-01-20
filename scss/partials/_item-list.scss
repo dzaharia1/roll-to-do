@@ -1,9 +1,16 @@
 .item-list {
     width: 100%;
+    height: calc(100vh - 176px);
     list-style: none;
     scrollbar-width: none;
-    overflow-y: scroll;
-    overflow-x: visible;
+    overflow: scroll;
+    visibility: hidden;
+    display: none;
+
+    &--visible {
+        visibility: visible;
+        display: block;
+    }
 
     li {
         @extend %horizontal-center;
@@ -11,6 +18,15 @@
         padding: 24px 0;
         border-bottom: 1px $accent-gray solid;
         overflow-x: visible;
+
+        &:first-child {
+            padding-top: 0;
+        }
+
+        &:last-child {
+            padding-bottom: 64px;
+            border-bottom: none;
+        }
     }
 
     &__check {

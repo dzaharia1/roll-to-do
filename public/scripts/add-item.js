@@ -40,7 +40,7 @@ function submitItem () {
 }
 
 function addItem (list, itemText) {
-	const itemList = document.querySelector('.item-list');
+	const itemList = document.querySelector('.item-list--visible');
 	let newNode = document.createElement('li');
 	let nodeLabel = document.createElement('label');
 	let nodeCheckBox = document.createElement('input');

@@ -1,46 +1,10 @@
-<ul class="item-list">
+<% for (let i = 0; i < data.length; i ++) { %>
+<ul class="item-list <%if (i === 0) {%>item-list--visible<%}%>" id="<%- data[i].categorySlug %>">
+    <% for (item of (data[i].items)) { %>
     <li>
-        <label for="" class="item-list__label">Rear Window</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
+        <label for="" class="item-list__label"><%- item.name %></label>
+        <input class="item-list__check" type="checkbox" name="" id="" <% if (item.seen) { %>checked<% } %>>
     </li>
-    <li>
-        <label for="" class="item-list__label">American Psycho</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
-    </li>
-    <li>
-        <label for="" class="item-list__label">It Follows</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
-    </li>
-    <li>
-        <label for="" class="item-list__label">The Grand Budapest Hotel</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
-    </li>
-    <li>
-        <label for="" class="item-list__label">Blackkklansman</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
-    </li>
-    <li>
-        <label for="" class="item-list__label">Schindler's List</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
-    </li>
-    <li>
-        <label for="" class="item-list__label">Shutter Island</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
-    </li>
-    <li>
-        <label for="" class="item-list__label">Memento</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
-    </li>
-    <li>
-        <label for="" class="item-list__label">Schindler's List</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
-    </li>
-    <li>
-        <label for="" class="item-list__label">Shutter Island</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
-    </li>
-    <li>
-        <label for="" class="item-list__label">Memento</label>
-        <input class="item-list__check" type="checkbox" name="" id="">
-    </li>
+    <% } %>
 </ul>
+<% } %>

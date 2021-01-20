@@ -5,6 +5,7 @@ ejs = require('ejs'),
 app = express();
 const localport = '3333';
 const localhost = 'http://localhost';
+let data = require('./data.js');
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -17,7 +18,7 @@ app.host = app.set('host', process.env.HOST || localhost);
 app.port = app.set('port', process.env.PORT || localport);
 
 app.get('/', function(req, res) {
-	res.render('index', { data: 'test data' });
+	res.render('index', { data });
 });
 
 var server = app.listen(app.get('port'), function() {
