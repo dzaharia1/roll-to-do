@@ -15,7 +15,7 @@
 
 .item-list {
   width: 100%;
-  height: calc(100vh - 176px);
+  height: calc(100vh - 156px);
   list-style: none;
   scrollbar-width: none;
   overflow: scroll;
@@ -128,6 +128,22 @@
     height: 16px; }
   .menu__randomize, .menu__icon {
     background-color: #E82E50; }
+
+.random-toast {
+  width: calc(100% - 48px);
+  background-color: #E82E50;
+  color: #FFF;
+  position: relative;
+  top: -10px;
+  left: 24px;
+  height: 43px;
+  border-radius: 16px 16px 0 0;
+  padding: 12px 16px;
+  transition: .2s ease-out; }
+  .random-toast--visible {
+    top: -66px; }
+  .random-toast p {
+    color: #FFF; }
 
 * {
   box-sizing: border-box;

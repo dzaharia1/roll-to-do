@@ -4,6 +4,8 @@ readyFunctions.push(() => {
     const categoryMenu = document.querySelector('.menu');
     const categoryList = document.querySelector('.menu__category-menu');
     const categories = categoryList.querySelectorAll('a');
+    const randomToast = document.querySelector('.random-toast');
+    const randomButton = document.querySelector('.menu__randomize');
 
     currCategory = `${categories[0].innerText}`;
 
@@ -30,24 +32,34 @@ readyFunctions.push(() => {
             }
         });
     }
+
+    randomButton.addEventListener('click', (e) => {
+        const itemList = document.querySelector('.item-list--visible').querySelectorAll('.item-list__label');
+        const randomIndex = Math.floor(Math.random() * itemList.length);
+        const randomItem = itemList[randomIndex].innerText;
+        randomToast.classList.remove('random-toast--visible');
+
+        setTimeout(() => {
+            randomToast.children[0].innerText = randomItem;
+            randomToast.classList.add('random-toast--visible');
+        }, 200);
+    });
 });
 
 function switchList (categoryName) {
     const currList = document.querySelector('.item-list--visible');
     const targetList = document.querySelector(`.item-list#${categoryName}`);
+    const randomButton = document.querySelector('.random-toast');
 
     currList.classList.remove('item-list--visible');
     targetList.classList.add('item-list--visible');
+    randomButton.classList.remove('random-toast--visible');
 }
 
 function setCategoryLabel (categoryName) {
+    const targetCategoryLabel = document.querySelector(`[data-target="${categoryName}"]`).parentNode;
+
     setTimeout(() => {
-        const targetCategoryLabel = document.querySelector(`[data-target="${categoryName}"]`).parentNode;
         targetCategoryLabel.scrollIntoView(true);
     }, 500);
-
-    console.log(targetCategoryLabel);
-
-
-    // categoryList.scrollTop = '50px';
 }
