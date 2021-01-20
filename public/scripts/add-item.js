@@ -31,15 +31,19 @@ readyFunctions.push(() => {
 
 function submitItem () {
 	const addItemInput = document.querySelector('.add-item__input');
-	const itemList = document.querySelector('.item-list');
+	const itemList = document.querySelector('.item-list--visible');
+	const currCategory = itemList.id;
 
-	addItem('movies', addItemInput.value);
+	APIRequest('POST', 'additem', currCategory, addItemInput.value);
+
+	addItem(addItemInput.value);
 	addItemInput.value = '';
 	addItemInput.focus();
 	itemList.scrollTop = 0;
+
 }
 
-function addItem (list, itemText) {
+function addItem (itemText) {
 	const itemList = document.querySelector('.item-list--visible');
 	let newNode = document.createElement('li');
 	let nodeLabel = document.createElement('label');

@@ -13,6 +13,20 @@
             thisFunction();
         }
     }
+
+    function APIRequest (verb, route, params) {
+        let request = new XMLHttpRequest();
+        let url = window.location.href;
+        url += `${route}/`;
+        for (let i = 2; i < arguments.length; i ++) {
+            url += `${arguments[i]}/`;
+        }
+
+        request.open(verb, url, true);
+        request.onload = () => {};
+
+        request.send();
+    }
     </script>
     <script src="/scripts/add-item.js"></script>
     <script src="/scripts/item-list.js"></script>

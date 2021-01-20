@@ -21,24 +21,30 @@ app.get('/', function(req, res) {
 	res.render('index', { categories });
 });
 
-app.put('/addcategory/:category', (req, res) => {
+app.post('/addcategory/:category', (req, res) => {
   addCategory(req.params.category);
+  res.send('200');
 });
 
 app.put('/editcategory/:targetcategory/:newname', (req, res) => {
   editCategory(req.params.targetcategory, req.params.newname);
+  res.send('200');
 });
 
-app.put('/additem/:targetcategory/:item', (req, res) => {
+app.post('/additem/:targetcategory/:item', (req, res) => {
   addItem(req.params.targetcategory, req.params.item);
+  console.log(`adding ${req.params.item} to ${req.params.targetcategory}`);
+  res.send('200');
 });
 
-app.put('/editstatus/:targetcategory/:item/:status', (req, res) => {
+app.put('/setstatus/:targetcategory/:item/:status', (req, res) => {
   changeItemStatus(req.params.targetcategory, req.params.item, req.params.status);
+  // console.log(`set ${req.params.item} in ${req.params.targetcategory} to ${req.params.status}`);
+  res.send('200');
 });
 
 function addCategory (categoryName) {
-  categories.push({
+  categories.unshift({
     'category': categoryName,
     'categorySlug': categoryName.replace(/\s/g, ''),
     'items': []
@@ -53,12 +59,20 @@ function editCategory (targetCategory, newName) {
   }
 }
 
+function deleteCategory (targetCategory) {
+  for (let i = 0; i < categories.length; i ++) {
+    if (categories[i].categorySlug === targetCategory) {
+      categories.split(i, 0);
+    }
+  }
+}
+
 function addItem (targetCategory, item) {
   for (let category of categories) {
     if (category.categorySlug === targetCategory) {
-      category.items.push({
+      category.items.unshift({
         'name': item,
-        'status': false
+        'seen': false
       });
     }
   }
@@ -69,7 +83,19 @@ function changeItemStatus (targetCategory, targetItem, status) {
     if (category.categorySlug === targetCategory) {
       for (let item of category.items) {
         if (item.name === targetItem) {
-          item.status = status;
+          item.seen = status;
+        }
+      }
+    }
+  }
+}
+
+function deleteItem (targetCategory, targetItem) {
+  for (let category of categories) {
+    if (category.categorySlug === targetCategory) {
+      for (let i = 0; i < category.items.length; i ++) {
+        if (category.items[i].name === targetItem) {
+          category.items.splice(i, 1);
         }
       }
     }

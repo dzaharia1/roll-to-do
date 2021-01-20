@@ -1,25 +1,14 @@
 readyFunctions.push(() => {
     const items = document.querySelectorAll('.item-list>li');
-    let touchposition = {
-        x: 0,
-        y: 0
-    };
+    const checkBoxes = document.querySelectorAll('.item-list__check');
 
-    // todo: start creating the ability to reorder items
-    // for (thisItem of items) {
-    //     thisItem.addEventListener('touchstart', (e) => {
-    //         if (!e.target.classList.contains('item-list__check')) {
-    //             touchstartHandler(thisItem, e);
-    //         }
-    //     });
-
-    //     thisItem.addEventListener('touchmove', (e) => {
-    //         if (!e.target.classList.contains('item-list__check')) {
-    //             dragItem(thisItem, e);
-    //         }
-    //         // e.preventDefault();
-    //     });
-    // }
+    for (let checkbox of checkBoxes) {
+        checkbox.addEventListener('click', (e) => {
+            let itemName = checkbox.parentNode.children[0].innerText;
+            let currCategory = document.querySelector('.item-list--visible').id;
+            APIRequest ('PUT', 'setstatus', currCategory, itemName, `${checkbox.checked}`)
+        })
+    }
 });
 
 function dragItem (item, touchEvent) {
