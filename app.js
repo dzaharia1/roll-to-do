@@ -5,6 +5,7 @@ ejs = require('ejs'),
 app = express();
 const localport = '3333';
 const localhost = 'http://localhost';
+const postgres = require('./db/pg.js');
 let categories = require('./data.js');
 
 app.set('views', path.join(__dirname, 'views'));
@@ -17,8 +18,14 @@ app.set('view engine', 'ejs');
 app.host = app.set('host', process.env.HOST || localhost);
 app.port = app.set('port', process.env.PORT || localport);
 
-app.get('/', function(req, res) {
-	res.render('index', { categories });
+app.get('/', async function(req, res) {
+  let categories, items;
+  try {
+    categories = await postgres.getCategories();
+    items = await postgres.getItems();
+  } finally {
+    res.render('index', { categories, items });
+  }
 });
 
 app.post('/addcategory/:category', (req, res) => {
@@ -39,8 +46,12 @@ app.post('/additem/:targetcategory/:item', (req, res) => {
 
 app.put('/setstatus/:targetcategory/:item/:status', (req, res) => {
   changeItemStatus(req.params.targetcategory, req.params.item, req.params.status);
-  // console.log(`set ${req.params.item} in ${req.params.targetcategory} to ${req.params.status}`);
   res.send('200');
+});
+
+var server = app.listen(app.get('port'), function() {
+  app.address = app.get('host') + ':' + server.address().port;
+  console.log('Listening at ' + app.address);
 });
 
 function addCategory (categoryName) {
@@ -101,8 +112,3 @@ function deleteItem (targetCategory, targetItem) {
     }
   }
 }
-
-var server = app.listen(app.get('port'), function() {
-  app.address = app.get('host') + ':' + server.address().port;
-  console.log('Listening at ' + app.address);
-});
