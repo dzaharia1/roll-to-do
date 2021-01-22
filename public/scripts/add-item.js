@@ -36,27 +36,29 @@ function submitItem () {
 
 	APIRequest('POST', 'additem', currCategory, addItemInput.value);
 
-	addItem(addItemInput.value);
+	appendListItem(addItemInput.value);
 	addItemInput.value = '';
 	addItemInput.focus();
 	itemList.scrollTop = 0;
 
 }
 
-function addItem (itemText) {
+function appendListItem (itemText) {
 	const itemList = document.querySelector('.item-list--visible');
 	let newNode = document.createElement('li');
-	let nodeLabel = document.createElement('label');
-	let nodeCheckBox = document.createElement('input');
+	let itemMabel = document.createElement('label');
+	let itemCheckBox = document.createElement('input');
 
-	nodeLabel.innerText = itemText;
-	nodeLabel.classList.add('item-list__label');
+	itemMabel.innerText = itemText;
+	itemMabel.classList.add('item-list__label');
 
-	nodeCheckBox.setAttribute('type', 'checkbox');
-	nodeCheckBox.classList.add('item-list__check');
+	itemCheckBox.setAttribute('type', 'checkbox');
+	itemCheckBox.classList.add('item-list__check');
+	itemCheckBox.id = itemText.replace(/\s+/g, '').toLowerCase();
+	itemCheckBox.addEventListener('click', checkboxClick);
 
-	newNode.appendChild(nodeLabel);
-	newNode.appendChild(nodeCheckBox);
+	newNode.appendChild(itemMabel);
+	newNode.appendChild(itemCheckBox);
 
 	itemList.prepend(newNode);
 }

@@ -1,4 +1,4 @@
-
+const SqlString = require('sqlstring');
 const {Pool, Client} = require('pg');
 const connectionString = process.env.DATABASE_URL || 'postgresql://danzaharia@localhost:5432/whattodo';
 
@@ -29,17 +29,33 @@ module.exports = {
   getCategories: async () => {
     return await runQuery('SELECT * FROM categories;');
   },
+  addCategory: async (categoryName) => {
+    const fixedName = SqlString.escape(categoryName);
+    const slug = fixedName.replace(/\s+/g, '').toLowerCase();
+    return await runQuery(`INSERT INTO categories (slug, category_name)
+                    VALUES (${slug}, ${fixedName})`);
+  },
+  setLastSeenCategory: async (categorySlug) => {
+    return await runQuery(`UPDATE categories SET last_seen = false WHERE last_seen = true;
+                           UPDATE categories SET last_seen = true WHERE slug = '${categorySlug}'`);
+  },
   getItems: async () => {
-    return await runQuery('select * from items;');
+    return await runQuery('SELECT * FROM items ORDER BY seen;');
   },
-  getCategoryItems: async (category) => {
-    return await runQuery(`select * from items where category = ${category};`)
+  getCategoryItems: async (categorySlug) => {
+    return await runQuery(`SELECT * FROM items WHERE category = ${categorySlug};`)
   },
-  addItem: async (name, categorySlug) => {
-    let date = new Date();
-    dateString = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`
-    let slug = name.replace(/\s+/g, '');
-    return await runQuery(`insert into items (item_name, slug, category, date_added)
-              values ('${name}', '${slug}', '${categorySlug})'`)
+  //todo: add date to items
+  addItem: async (categorySlug, name) => {
+    name = name.replace(`'`, `''`);
+    const date = new Date();
+    const dateString = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    const slug = name.replace(/\s+/g, '').toLowerCase();
+    return await runQuery(`INSERT INTO items (item_name, slug, category, date_added, seen)
+              VALUES ('${name}', '${slug}', '${categorySlug}', TO_DATE('${dateString}', 'YYYY/MM/DD'), false);`);
   },
+  changeItemStatus: async (categorySlug, itemSlug, status) => {
+    return await runQuery(`UPDATE items SET seen = ${status}
+              WHERE category = '${categorySlug}' AND slug = '${itemSlug}';`);
+  }
 };
