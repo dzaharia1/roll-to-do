@@ -1,11 +1,20 @@
 const SqlString = require('sqlstring');
 const {Pool, Client} = require('pg');
 if (!process.env.PGHOST) {
-  const connectionString = 'postgresql://danzaharia@localhost:5432/whattodo';
+  const connectionString = `postgresql://danzaharia@localhost:5432/whattodo`;
+  const client = new Client({ connectionString });
+} else {
+  const client = new Client({
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    database: PGDATABASE,
+    port: PGPORT,
+    host: PGHOST,
+    ssl: true
+  });
 }
 
 // const pool = new Pool({ connectionString });
-const client = new Client();
 
 client.connect();
 
