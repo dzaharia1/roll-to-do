@@ -1,16 +1,16 @@
 const SqlString = require('sqlstring');
 const {Pool, Client} = require('pg');
-const connectionString = process.env.DATABASE_URL || 'postgresql://danzaharia@localhost:5432/whattodo';
+const connectionString = process.env.HEROKU_POSTGRESQL_OLIVE_URL || 'postgresql://danzaharia@localhost:5432/whattodo';
 
-const pool = new Pool({ connectionString });
+// const pool = new Pool({ connectionString });
 const client = new Client({ connectionString });
 
 client.connect();
 
-pool.query('SELECT NOW()', (err, res) => {
-  if (err) { console.log(err); }
-  pool.end();
-});
+// pool.query('SELECT NOW()', (err, res) => {
+//   if (err) { console.log(err); }
+//   pool.end();
+// });
 
 async function runQuery (query) {
   let rows;
