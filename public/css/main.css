@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
-.item-list li, .add-item {
+.item-list__item, .item-list__item .item-list__edit-panel, .add-item, .edit-items {
   display: flex;
   flex-direction: row;
   align-items: center; }
@@ -9,7 +9,12 @@
   flex-direction: row;
   align-items: flex-end; }
 
-.add-item__input, .add-item button, .menu__icon, .menu__randomize, *, body {
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.top-bar button, .add-item__input, .menu__icon, .menu__randomize, *, body {
   font-family: lato, helvetica, arial, sans-serif;
   font-weight: 700; }
 
@@ -18,22 +23,65 @@
   height: calc(100vh - 156px);
   list-style: none;
   scrollbar-width: none;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   visibility: hidden;
-  display: none; }
+  display: none;
+  padding: 0 24px 0 0; }
   .item-list--visible {
     visibility: visible;
     display: block; }
-  .item-list li {
-    justify-content: space-between;
-    padding: 24px 0;
+  .item-list__item {
+    width: calc(100vw + 126px - 24px);
+    padding: 8px 0;
     border-bottom: 1px #EEEEEE solid;
-    overflow-x: visible; }
-    .item-list li:first-child {
+    overflow-x: visible;
+    transform: translateX(-126px);
+    transition: transform .2s ease-in-out; }
+    .item-list__item--edit-mode {
+      transform: translateX(0px); }
+    .item-list__item--deleted {
+      transform: translateX(100vw); }
+    .item-list__item:first-child {
       padding-top: 0; }
-    .item-list li:last-child {
+    .item-list__item:last-child {
       padding-bottom: 64px;
       border-bottom: none; }
+    .item-list__item label {
+      flex: 1; }
+    .item-list__item .item-list__edit-panel {
+      background-color: #E82E50;
+      margin-right: 18px;
+      border-radius: 0 4px 4px 0;
+      padding: 14px; }
+    .item-list__item .item-list__selector, .item-list__item .item-list__delete-button, .item-list__item .item-list__edit-button {
+      appearance: none;
+      border: none;
+      background: none;
+      width: 19px;
+      height: 19px;
+      margin-right: 16px; }
+    .item-list__item .item-list__delete-button {
+      background: url("/img/icon_delete_white.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center; }
+    .item-list__item .item-list__edit-button {
+      background: url("/img/icon_edit.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center; }
+    .item-list__item .item-list__selector {
+      border: 3px #FFF solid;
+      border-radius: 4px; }
+      .item-list__item .item-list__selector:checked {
+        appearance: none;
+        background: url("/img/checkbox-checked-small.svg");
+        background-size: 50%;
+        background-repeat: no-repeat;
+        background-position: center; }
+      .item-list__item .item-list__selector:focus {
+        outline: none; }
   .item-list__check {
     appearance: none;
     width: 28px;
@@ -41,7 +89,7 @@
     border-radius: 6px;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.07), 0px 3px 15px rgba(0, 0, 0, 0.1);
     background: #FFF;
-    background-image: url("../img/checkbox-check.svg");
+    background-image: url("/img/checkbox-check.svg");
     background-size: 65% 65%;
     background-repeat: no-repeat;
     background-position: center;
@@ -53,10 +101,20 @@
       appearance: none;
       background-color: rgba(232, 46, 80, 0.86); }
 
+.top-bar {
+  width: calc(100vw - 24px * 2);
+  padding: 0;
+  margin-bottom: 24px; }
+  .top-bar button {
+    margin-left: 6px; }
+
 .add-item {
+  display: none;
   width: 100%;
   transform: translateY(0px) scale(1);
   transition: .2s transform; }
+  .add-item--visible {
+    display: flex; }
   .add-item__input {
     width: 100%;
     appearance: none;
@@ -75,12 +133,11 @@
     position: absolute;
     right: 24px; }
   .add-item button {
-    appearance: none;
-    background: none;
-    border: none;
-    margin-left: 6px;
     opacity: 0;
-    transition: opacity .2s; }
+    transition: opacity .2s;
+    background: none;
+    appearance: none;
+    border: none; }
     .add-item button.add-item__cancel {
       color: #E82E50; }
     .add-item button.add-item__add {
@@ -89,6 +146,47 @@
     transform: translateY(-1px) scale(1.02); }
     .add-item--active button {
       opacity: 100; }
+
+.edit-items {
+  display: none;
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px #EEEEEE solid;
+  padding: 13px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.07), 0px 3px 15px rgba(0, 0, 0, 0.1); }
+  .edit-items--visible {
+    display: flex; }
+  .edit-items__select-all, .edit-items__check-seen, .edit-items__delete {
+    appearance: none;
+    border: none;
+    width: 20px;
+    height: 20px;
+    margin-right: 14px;
+    background-color: #FFF;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center; }
+  .edit-items__select-all {
+    border: 3px #272D32 solid;
+    border-radius: 4px; }
+    .edit-items__select-all:checked {
+      background-image: url("/img/checkbox-checked-small-black.svg");
+      background-size: 50%;
+      background-repeat: no-repeat;
+      background-position: center; }
+  .edit-items__selected-count {
+    flex: 1; }
+  .edit-items__check-seen {
+    background-image: url("/img/checkbox-check.svg");
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(232, 46, 80, 0.86);
+    border-radius: 4px; }
+  .edit-items__delete {
+    color: #E82E50;
+    background-image: url("/img/icon_delete_maroon.svg") !important; }
 
 .menu {
   position: fixed;
@@ -130,12 +228,12 @@
     background-color: #E82E50; }
 
 .random-toast {
-  width: calc(100% - 48px);
+  width: calc(100% - 24px * 4);
   background-color: #E82E50;
   color: #FFF;
   position: relative;
   top: -10px;
-  left: 24px;
+  left: 0px;
   height: 43px;
   border-radius: 16px 16px 0 0;
   padding: 12px 16px;
@@ -164,7 +262,6 @@ li {
 body {
   width: 100%;
   height: 100vh;
-  padding: 0 24px 0 24px;
-  display: grid;
+  padding: 24px 0;
   scrollbar-width: none;
   font-size: 16px; }

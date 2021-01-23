@@ -66,6 +66,12 @@ app.put('/setlastseen/:targetcategory', (req, res) => {
   res.send('200');
 });
 
+app.delete('/delete/:targetcategory/:item', async (req, res) => {
+  console.log(`Deleting ${req.params.item} from ${req.params.targetcategory}`);
+  postgres.deleteItem(req.params.targetcategory, req.params.item);
+  res.send('200');
+});
+
 var server = app.listen(app.get('port'), function() {
   app.address = app.get('host') + ':' + server.address().port;
   console.log('Listening at ' + app.address);
