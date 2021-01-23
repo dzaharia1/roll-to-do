@@ -38,6 +38,7 @@ async function runQuery (query) {
     console.error('~~~~~~~~~~~~~~there was an error~~~~~~~~~~~~~~~~');
     console.error(error.stack);
   } finally {
+    console.log(rows.rows);
     return rows.rows;
   }
 }
