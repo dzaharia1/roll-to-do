@@ -1,9 +1,11 @@
 const SqlString = require('sqlstring');
 const {Pool, Client} = require('pg');
-const connectionString = process.env.HEROKU_POSTGRESQL_OLIVE_URL || 'postgresql://danzaharia@localhost:5432/whattodo';
+if (!process.env.PGHOST) {
+  const connectionString = 'postgresql://danzaharia@localhost:5432/whattodo';
+}
 
 // const pool = new Pool({ connectionString });
-const client = new Client({ connectionString });
+const client = new Client();
 
 client.connect();
 
