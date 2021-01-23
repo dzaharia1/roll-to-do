@@ -36,7 +36,9 @@ readyFunctions.push(() => {
     }
 
     for (let button of itemDeleteButtons) {
-        button.addEventListener('click', deleteItem);
+        button.addEventListener('click', (e) => {
+            deleteItem(button);
+        });
     }
 });
 

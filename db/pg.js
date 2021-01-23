@@ -1,33 +1,21 @@
 const SqlString = require('sqlstring');
 const {Pool, Client} = require('pg');
-// let client;
-// if (!process.env.PGHOST) {
-//   const connectionString = `postgresql://danzaharia@localhost:5432/whattodo`;
-//   client = new Client({ connectionString });
-// } else {
-//   client = new Client({
-//     user: process.env.PGUSER,
-//     password: process.env.PGPASSWORD,
-//     database: process.env.PGDATABASE,
-//     port: process.env.PGPORT,
-//     host: process.env.PGHOST,
-//     ssl: true
-//   });
-// }
 
-// const pool = new Pool({ connectionString });
-const client = new Client({
-  connectionString: process.env.DATABASE_URL || `postgresql://danzaharia@localhost:5432/whattodo`,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+let client;
+
+if (process.env.DATABASE_URL) {
+  client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
+  });
+} else {
+  client = new Client({
+    connectionString: `postgresql://danzaharia@localhost:5432/whattodo`
+  });
+}
 client.connect();
-
-// pool.query('SELECT NOW()', (err, res) => {
-//   if (err) { console.log(err); }
-//   pool.end();
-// });
 
 async function runQuery (query) {
   let rows;
@@ -38,7 +26,6 @@ async function runQuery (query) {
     console.error('~~~~~~~~~~~~~~there was an error~~~~~~~~~~~~~~~~');
     console.error(error.stack);
   } finally {
-    console.log(rows.rows);
     return rows.rows;
   }
 }
