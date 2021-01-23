@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="482px" height="482px" viewBox="0 0 482 482" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Path</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="noun_Delete_2002069" fill="#272D32">
+            <path d="M12,52 L52,12 C67,-3 91,-3 105,12 L241,148 L377,12 C391,-3 415,-3 430,12 L470,52 C485,67 485,91 470,105 L335,241 L470,377 C485,391 485,415 470,430 L430,470 C415,485 391,485 377,470 L241,335 L105,470 C91,485 67,485 52,470 L12,430 C-3,415 -3,391 12,377 L148,241 L12,105 C-3,91 -3,67 12,52 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>

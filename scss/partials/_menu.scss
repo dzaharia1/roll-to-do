@@ -63,12 +63,12 @@
 }
 
 .random-toast {
-    width: calc(100% - 48px);
+    width: calc(100% - #{$horizontal-padding} * 4);
     background-color: $base-maroon;
     color: $white;
     position: relative;
     top: -10px;
-    left: 24px;
+    left: 0px;
     height: 43px;
     border-radius: 16px 16px 0 0;
     padding: 12px 16px;

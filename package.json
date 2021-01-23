@@ -21,6 +21,9 @@
   "dependencies": {
     "consolidate": "^0.16.0",
     "ejs": "^3.1.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "node-postgres": "^0.6.2",
+    "pg": "^8.5.1",
+    "sqlstring": "^2.3.2"
   }
 }

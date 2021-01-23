@@ -1,10 +1,17 @@
-<% for (let i = 0; i < categories.length; i ++) { %>
-<ul class="item-list <%if (i === 0) {%>item-list--visible<%}%>" id="<%- categories[i].categorySlug %>">
-    <% for (item of (categories[i].items)) { %>
-    <li>
-        <label for="" class="item-list__label"><%- item.name %></label>
-        <input class="item-list__check" type="checkbox" name="" id="" <% if (item.seen) { %>checked<% } %>>
-    </li>
-    <% } %>
-</ul>
+<% for (let category of categories) { %>
+    <ul class="item-list <%if (category.last_seen) {%>item-list--visible<%}%>" id="<%- category.slug %>">
+        <% for (let item of items) { %>
+            <% if (item.category === category.slug) { %>
+                <li class="item-list__item" id="<%- item.slug %>">
+                    <div class="item-list__edit-panel">
+                        <input type="checkbox" class="item-list__selector">
+                        <button class="item-list__delete-button"></button>
+                        <button class="item-list__edit-button"></button>
+                    </div>
+                    <label for="" class="item-list__label"><%- item.item_name %></label>
+                    <input class="item-list__check" type="checkbox" name="" id="<%- item.slug %>" <% if (item.seen) { %>checked<% } %>>
+                </li>
+            <% } %>
+        <% } %>
+    </ul>
 <% } %>

@@ -27,6 +27,7 @@ readyFunctions.push(() => {
             e.preventDefault();
             if (categoryMenu.classList.contains('menu--open')) {
                 const targetCategory = category.getAttribute('data-target');
+                APIRequest ('PUT', 'setlastseen', targetCategory);
                 switchList(targetCategory);
                 setCategoryLabel(targetCategory)
             }
@@ -50,16 +51,18 @@ function switchList (categoryName) {
     const currList = document.querySelector('.item-list--visible');
     const targetList = document.querySelector(`.item-list#${categoryName}`);
     const randomButton = document.querySelector('.random-toast');
-
-    currList.classList.remove('item-list--visible');
+    if (currList) {
+        currList.classList.remove('item-list--visible');
+    }
     targetList.classList.add('item-list--visible');
     randomButton.classList.remove('random-toast--visible');
 }
 
 function setCategoryLabel (categoryName) {
     const targetCategoryLabel = document.querySelector(`[data-target="${categoryName}"]`).parentNode;
-
     setTimeout(() => {
         targetCategoryLabel.scrollIntoView(true);
-    }, 500);
+    }, 400);
 }
+
+setCategoryLabel(document.querySelector('.item-list--visible').id);
