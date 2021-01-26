@@ -5,8 +5,8 @@
                 <li class="item-list__item" id="<%- item.slug %>">
                     <div class="item-list__edit-panel">
                         <input type="checkbox" class="item-list__selector">
-                        <button class="item-list__delete-button"></button>
                         <button class="item-list__edit-button"></button>
+                        <button class="item-list__delete-button"></button>
                     </div>
                     <label for="" class="item-list__label"><%- item.item_name %></label>
                     <input class="item-list__check" type="checkbox" name="" id="<%- item.slug %>" <% if (item.seen) { %>checked<% } %>>

@@ -9,7 +9,7 @@
   flex-direction: row;
   align-items: flex-end; }
 
-body {
+.item-list, body {
   display: flex;
   flex-direction: column;
   align-items: center; }
@@ -24,22 +24,28 @@ body {
   list-style: none;
   scrollbar-width: none;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: visible;
   visibility: hidden;
   display: none;
   padding: 0 24px 0 0; }
   .item-list--visible {
     visibility: visible;
-    display: block; }
+    display: flex; }
   .item-list__item {
     width: calc(100vw + 126px - 24px);
+    max-width: 726px;
     padding: 8px 0;
     border-bottom: 1px #EEEEEE solid;
+    transform: translateX(-63px);
     overflow-x: visible;
-    transform: translateX(-126px);
-    transition: transform .2s ease-in-out; }
+    transition: .2s transform; }
+    @media screen and (min-width: 648px) {
+      .item-list__item {
+        max-width: 717px;
+        transform: translateX(-46px);
+        border: none; } }
     .item-list__item--edit-mode {
-      transform: translateX(0px); }
+      transform: translateX(63px); }
     .item-list__item--deleted {
       transform: translateX(100vw); }
     .item-list__item:first-child {
@@ -53,7 +59,8 @@ body {
       background-color: #E82E50;
       margin-right: 18px;
       border-radius: 0 4px 4px 0;
-      padding: 14px; }
+      padding: 14px;
+      transition: transform .2s ease-in-out; }
     .item-list__item .item-list__selector, .item-list__item .item-list__delete-button, .item-list__item .item-list__edit-button {
       appearance: none;
       border: none;
@@ -82,6 +89,22 @@ body {
         background-position: center; }
       .item-list__item .item-list__selector:focus {
         outline: none; }
+    @media screen and (min-width: 648px) {
+      .item-list__item .item-list__edit-panel {
+        background: none;
+        flex-direction: row-reverse;
+        border-right: 1px #dbdfe3 solid;
+        border-radius: 0;
+        margin-right: 8px; }
+      .item-list__item .item-list__delete-button {
+        background-image: url("/img/icon_delete_maroon.svg"); }
+      .item-list__item .item-list__edit-button {
+        background-image: url("/img/icon_edit-maroon.svg"); }
+      .item-list__item .item-list__selector {
+        border-color: #E82E50;
+        margin: 0; }
+        .item-list__item .item-list__selector:checked {
+          background-image: url("/img/checkbox-checked-small-maroon.svg"); } }
   .item-list__check {
     appearance: none;
     width: 28px;
@@ -103,6 +126,7 @@ body {
 
 .top-bar {
   width: calc(100vw - 24px * 2);
+  max-width: 600px;
   padding: 0;
   margin-bottom: 24px; }
   .top-bar button {
@@ -193,10 +217,14 @@ body {
   bottom: 32px;
   right: 24px;
   left: 24px;
+  max-width: 600px;
   border-radius: 28px;
   background-color: #FFF;
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px 0px rgba(0, 0, 0, 0.07);
   padding: 8px 8px 8px 16px; }
+  @media screen and (min-width: 648px) {
+    .menu {
+      left: calc(50vw - 600px / 2); } }
   .menu--open .menu__category-menu {
     max-height: 400px;
     margin: 10px 0; }
@@ -229,6 +257,7 @@ body {
 
 .random-toast {
   width: calc(100% - 24px * 4);
+  max-width: 504px;
   background-color: #E82E50;
   color: #FFF;
   position: relative;

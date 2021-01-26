@@ -65,6 +65,8 @@ module.exports = {
     return await runQuery(`DELETE FROM items WHERE slug = '${itemSlug}' AND category = '${categorySlug}';`);
   },
   changeItemStatus: async (categorySlug, itemSlug, status) => {
+    itemSlug = itemSlug.replace(`'`, `''`).replace(/\s+/g, '').toLowerCase();
+    console.log(itemSlug);
     return await runQuery(`UPDATE items SET seen = ${status}
               WHERE category = '${categorySlug}' AND slug = '${itemSlug}';`);
   }
