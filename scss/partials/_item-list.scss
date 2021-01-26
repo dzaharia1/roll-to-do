@@ -1,31 +1,40 @@
 .item-list {
+    @extend %vertical-center;
     width: 100%;
+    // max-width: $site-max-width;
     height: calc(100vh - 156px);
     list-style: none;
     scrollbar-width: none;
     overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-x: visible;
     visibility: hidden;
     display: none;
     padding : 0 $horizontal-padding 0 0;
 
     &--visible {
         visibility: visible;
-        display: block;
+        display: flex;
     }
 
     &__item {
         @extend %horizontal-center;
-        // justify-content: space-between;
         width: calc(100vw + 126px - #{$horizontal-padding});
+        max-width: $site-max-width + 126px;
         padding: 8px 0;
         border-bottom: 1px $accent-gray solid;
+        transform: translateX(-63px);
         overflow-x: visible;
-        transform: translateX(-126px);
-        transition: transform .2s ease-in-out;
+        transition: .2s transform;
+
+        @media screen and (min-width: $site-max-width + $horizontal-padding * 2) {
+            // width: calc(100vw + 63px - #{$horizontal-padding});
+            max-width: $site-max-width + 117px;
+            transform: translateX(-46px);
+            border: none;
+        }
 
         &--edit-mode {
-            transform: translateX(0px);
+            transform: translateX(63px);
         }
 
         &--deleted {
@@ -52,6 +61,7 @@
                 margin-right: 18px;
                 border-radius: 0 4px 4px 0;
                 padding: 14px;
+                transition: transform .2s ease-in-out;
             }
 
             &__selector,
@@ -93,6 +103,32 @@
 
                 &:focus {
                     outline: none;
+                }
+            }
+            @media screen and (min-width: $site-max-width + $horizontal-padding * 2) {
+                &__edit-panel {
+                    background: none;
+                    flex-direction: row-reverse;
+                    border-right: 1px lighten($black, 70) solid;
+                    border-radius: 0;
+                    margin-right: 8px;
+                }
+
+                &__delete-button {
+                    background-image: url('/img/icon_delete_maroon.svg');
+                }
+
+                &__edit-button {
+                    background-image: url('/img/icon_edit-maroon.svg');
+                }
+
+                &__selector {
+                    border-color: $base-maroon;
+                    margin: 0;
+
+                    &:checked {
+                        background-image: url('/img/checkbox-checked-small-maroon.svg');
+                    }
                 }
             }
         }

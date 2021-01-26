@@ -54,28 +54,37 @@ function submitItem () {
 	const addItemInput = document.querySelector('.add-item__input');
 	const itemList = document.querySelector('.item-list--visible');
 	const currCategory = itemList.id;
+	const slug = addItemInput.value.replace(/\s+/g, '').toLowerCase();
 
 	APIRequest('POST', 'additem', currCategory, addItemInput.value);
 
-	appendListItem(addItemInput.value);
+	appendListItem(addItemInput.value, slug);
 	addItemInput.value = '';
 	addItemInput.focus();
 	itemList.scrollTop = 0;
 
 }
 
-function appendListItem (itemText) {
+function appendListItem (itemText, itemSlug) {
 	const itemList = document.querySelector('.item-list--visible');
 	let newNode = document.createElement('li');
 	let itemLabel = document.createElement('label');
 	let itemCheckBox = document.createElement('input');
 	let itemEditPanel = document.createElement('div');
+	let itemEditPanelDelete = document.createElement('button');
+	let itemEditPanelEdit = document.createElement('button');
+	let itemEditPanelSelect = document.createElement('input');
 
 	itemEditPanel.classList.add('item-list__edit-panel');
-	itemEditPanel.innerHTML = `
-            <input type="checkbox" class="item-list__selector">
-            <button class="item-list__delete-button"></button>
-			<button class="item-list__edit-button"></button>`;
+	itemEditPanelDelete.classList.add('item-list__delete-button');
+	itemEditPanelDelete.addEventListener('click', deleteItem);
+	itemEditPanelEdit.classList.add('item-list__edit-button');
+	itemEditPanelSelect.classList.add('item-list__selector');
+	itemEditPanelSelect.addEventListener('click', selectItem);
+	itemEditPanelSelect.setAttribute('type', 'checkbox');
+	itemEditPanel.appendChild(itemEditPanelSelect);
+	itemEditPanel.appendChild(itemEditPanelEdit);
+	itemEditPanel.appendChild(itemEditPanelDelete);
 
 	itemLabel.innerText = itemText;
 	itemLabel.classList.add('item-list__label');
@@ -86,6 +95,7 @@ function appendListItem (itemText) {
 	itemCheckBox.addEventListener('click', setItemSeen);
 
 	newNode.classList.add('item-list__item');
+	newNode.id = itemSlug;
 	newNode.appendChild(itemEditPanel);
 	newNode.appendChild(itemLabel);
 	newNode.appendChild(itemCheckBox);

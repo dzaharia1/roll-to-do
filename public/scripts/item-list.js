@@ -19,39 +19,28 @@ readyFunctions.push(() => {
     }
 
     for (let itemSelector of itemSelectors) {
-        itemSelector.addEventListener('click', (e) => {
-            if (itemSelector.checked) {
-                showEditBar();
-                incrementEditBar();
-                openAllEditPanels();
-            } else {
-                decrementEditBar();
-                if (getEditBarCount() === 0) {
-                    hideEditBar();
-                    closeAllEditPanels();
-                    openEditPanel(itemSelector.parentNode.parentNode);
-                }
-            }
-        })
+        itemSelector.addEventListener('click', selectItem)
     }
 
     for (let button of itemDeleteButtons) {
-        button.addEventListener('click', (e) => {
-            deleteItem(button);
-        });
+        button.addEventListener('click', deleteItem);
     }
 });
 
 function toggleEditPanel (listItem) {
-    if (listItem.classList.contains('item-list__item--edit-mode')) {
-        listItem.classList.remove('item-list__item--edit-mode');
-    } else {
-        listItem.classList.add('item-list__item--edit-mode');
+    if (window.innerWidth <= 648) {
+        if (listItem.classList.contains('item-list__item--edit-mode')) {
+            listItem.classList.remove('item-list__item--edit-mode');
+        } else {
+            listItem.classList.add('item-list__item--edit-mode');
+        }
     }
 }
 
 function openEditPanel (listItem) {
-    listItem.classList.add('item-list__item--edit-mode');
+    if (window.innerWidth <= 648) {
+        listItem.classList.add('item-list__item--edit-mode');
+    }
 }
 
 function closeEditPanel (listItem) {
@@ -70,12 +59,31 @@ function closeAllEditPanels () {
 }
 
 function openAllEditPanels () {
-    for (let item of document.querySelectorAll('.item-list__item')) {
-        openEditPanel(item);
+    if (window.innerWidth <= 648) {
+        for (let item of document.querySelectorAll('.item-list__item')) {
+            openEditPanel(item);
+        }
     }
 }
 
-function deleteItem (button) {
+function selectItem (event) {
+    const itemSelector = event.srcElement;
+    if (itemSelector.checked) {
+        showEditBar();
+        incrementEditBar();
+        openAllEditPanels();
+    } else {
+        decrementEditBar();
+        if (getEditBarCount() === 0) {
+            hideEditBar();
+            closeAllEditPanels();
+            openEditPanel(itemSelector.parentNode.parentNode);
+        }
+    }
+}
+
+function deleteItem (event) {
+    const button = event.srcElement;
     const currCategory = document.querySelector('.item-list--visible').id;
     const itemSlug = button.parentNode.parentNode.id;
     const parentItem = button.parentNode.parentNode;
