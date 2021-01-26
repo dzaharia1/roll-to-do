@@ -43,9 +43,16 @@
       .item-list__item {
         max-width: 717px;
         transform: translateX(-46px);
-        border: none; } }
+        border: none; }
+        .item-list__item:hover .item-list__edit-panel {
+          visibility: visible; } }
     .item-list__item--edit-mode {
       transform: translateX(63px); }
+      .item-list__item--edit-mode div.item-list__edit-panel {
+        visibility: visible; }
+      @media screen and (min-width: 648px) {
+        .item-list__item--edit-mode {
+          transform: translateX(-46px); } }
     .item-list__item--deleted {
       transform: translateX(100vw); }
     .item-list__item:first-child {
@@ -95,7 +102,8 @@
         flex-direction: row-reverse;
         border-right: 1px #dbdfe3 solid;
         border-radius: 0;
-        margin-right: 8px; }
+        margin-right: 8px;
+        visibility: hidden; }
       .item-list__item .item-list__delete-button {
         background-image: url("/img/icon_delete_maroon.svg"); }
       .item-list__item .item-list__edit-button {

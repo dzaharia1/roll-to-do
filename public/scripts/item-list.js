@@ -28,19 +28,15 @@ readyFunctions.push(() => {
 });
 
 function toggleEditPanel (listItem) {
-    if (window.innerWidth <= 648) {
-        if (listItem.classList.contains('item-list__item--edit-mode')) {
-            listItem.classList.remove('item-list__item--edit-mode');
-        } else {
-            listItem.classList.add('item-list__item--edit-mode');
-        }
+    if (listItem.classList.contains('item-list__item--edit-mode')) {
+        listItem.classList.remove('item-list__item--edit-mode');
+    } else {
+        listItem.classList.add('item-list__item--edit-mode');
     }
 }
 
 function openEditPanel (listItem) {
-    if (window.innerWidth <= 648) {
-        listItem.classList.add('item-list__item--edit-mode');
-    }
+    listItem.classList.add('item-list__item--edit-mode');
 }
 
 function closeEditPanel (listItem) {
@@ -59,10 +55,8 @@ function closeAllEditPanels () {
 }
 
 function openAllEditPanels () {
-    if (window.innerWidth <= 648) {
-        for (let item of document.querySelectorAll('.item-list__item')) {
-            openEditPanel(item);
-        }
+    for (let item of document.querySelectorAll('.item-list__item')) {
+        openEditPanel(item);
     }
 }
 

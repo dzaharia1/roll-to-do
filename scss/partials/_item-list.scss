@@ -31,10 +31,24 @@
             max-width: $site-max-width + 117px;
             transform: translateX(-46px);
             border: none;
+
+            &:hover {
+                .item-list__edit-panel {
+                    visibility: visible;
+                }
+            }
         }
 
         &--edit-mode {
             transform: translateX(63px);
+
+            div.item-list__edit-panel {
+                visibility: visible;
+            }
+
+            @media screen and (min-width: $site-max-width + $horizontal-padding * 2) {
+                transform: translateX(-46px);
+            }
         }
 
         &--deleted {
@@ -112,6 +126,7 @@
                     border-right: 1px lighten($black, 70) solid;
                     border-radius: 0;
                     margin-right: 8px;
+                    visibility: hidden;
                 }
 
                 &__delete-button {
