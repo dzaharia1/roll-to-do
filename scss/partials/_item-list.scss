@@ -1,7 +1,6 @@
 .item-list {
     @extend %vertical-center;
     width: 100%;
-    // max-width: $site-max-width;
     height: calc(100vh - 156px);
     list-style: none;
     scrollbar-width: none;
@@ -27,7 +26,6 @@
         transition: .2s transform;
 
         @media screen and (min-width: $site-max-width + $horizontal-padding * 2) {
-            // width: calc(100vw + 63px - #{$horizontal-padding});
             max-width: $site-max-width + 117px;
             transform: translateX(-46px);
             border: none;
